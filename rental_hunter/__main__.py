@@ -1,2 +1,1 @@
-from .server import mcp
-mcp.run(transport="streamable-http")
+import uvicorn\n\nif __name__=="__main__":\n    uvicorn.run("rental_hunter.server:app",host="0.0.0.0",port=8000)\n
