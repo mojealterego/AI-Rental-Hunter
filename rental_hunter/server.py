@@ -42,4 +42,14 @@ def analyze_listing(title:str,url:str,rent:float|None=None,admin_fee:float|None=
     return {"title":title,"direct_url":url,"monthly_total":monthly,"deposit":deposit,"contract_type":contract_type,"risk_level":"high" if len(risks)>=2 else ("medium" if risks else "low"),"risk_notes":risks}
 
 if __name__=="__main__":
-    mcp.run(transport="streamable-http")
+    mcp.run(transport="streamable-http")from starlette.responses import JSONResponse
+
+@mcp.custom_route("/health", methods=["GET"])
+async def health(request):
+    return JSONResponse({"ok":True,"service":"AI Rental Hunter","version":"0.2.0"})
+
+app=mcp.streamable_http_app(stateless_http=True)
+
+if __name__=="__main__":
+    import uvicorn
+    uvicorn.run("rental_hunter.server:app",host="0.0.0.0",port=8000)
