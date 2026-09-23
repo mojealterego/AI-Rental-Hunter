@@ -68,7 +68,7 @@ def analyze_listing(title:str,url:str,rent:float|None=None,admin_fee:float|None=
     monthly=round(sum(v or 0 for v in [rent,admin_fee,utilities]),2)
     return {"title":title,"direct_url":url,"monthly_total":monthly,"deposit":deposit,"contract_type":contract_type,"risk_level":"high" if len(risks)>=2 else ("medium" if risks else "low"),"risk_notes":risks}
 
-app=mcp.streamable_http_app(stateless_http=True)
+app=mcp.streamable_http_app()
 
 if __name__=="__main__":
     import asyncio, threading, uvicorn
