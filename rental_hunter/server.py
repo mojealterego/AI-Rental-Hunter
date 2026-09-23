@@ -1,4 +1,5 @@
-from mcp.server.fastmcp import FastMCP\nfrom fastapi import FastAPI
+from mcp.server.fastmcp import FastMCP
+from fastapi import FastAPI
 from .models import SearchCriteria, Listing
 from .search import search
 from .scoring import total_cost, score_listing
