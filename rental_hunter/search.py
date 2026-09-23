@@ -24,7 +24,7 @@ def search(criteria: SearchCriteria) -> list[Listing]:
     if not key: raise RuntimeError("OPENAI_API_KEY is required")
     model=__import__("os").getenv("OPENAI_MODEL","gpt-5.6")
     client=OpenAI(api_key=key)
-    prompt=f"""Find current rental apartment listings matching:
+    prompt=f"""Perform a DEEP WEB RESEARCH pass. Search multiple independent sources and domains, including Polish rental portals, local real-estate sites, agency sites, classifieds, public/indexed social-media pages and other publicly searchable sources. Do not stop after the first relevant domain. Try alternative Polish query formulations, district names and synonyms. For each result verify the individual listing URL when possible.Find current rental apartment listings matching:
 {json.dumps(criteria.model_dump(),ensure_ascii=False,indent=2)}
 Search Polish portals and property sites. Prefer individual listing pages. Return up to {criteria.max_results} distinct offers.
 JSON schema:
