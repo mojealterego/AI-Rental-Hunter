@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ai-rental-hunter
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-5.6
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: 8000
