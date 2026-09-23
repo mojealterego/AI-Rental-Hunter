@@ -75,3 +75,11 @@ The web-search layer is instructed to search broadly across Polish rental portal
 ### New-result semantics
 
 A listing is considered new when its normalized individual listing URL has not previously been recorded. The database is SQLite by default and can be moved with `DATABASE_PATH`.
+
+## Deep-search policy
+
+Each scan is a multi-source research pass. The search prompt explicitly requests independent domains, Polish rental portals, local property sites, agency pages, classifieds and publicly indexed social-media pages, with alternative query formulations. The agent preserves direct listing URLs and does not stop at the first matching source.
+
+Monitoring is incremental: after the initial baseline, the watch returns listings whose normalized URL has not previously been stored. This prevents repeated notifications for the same listing.
+
+A watch interval is enforced at **60 minutes minimum**. One-hour and two-hour monitoring are therefore supported.
