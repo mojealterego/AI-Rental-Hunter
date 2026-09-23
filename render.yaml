@@ -8,8 +8,10 @@ services:
       - key: OPENAI_API_KEY
         sync: false
       - key: OPENAI_MODEL
-        value: gpt-5.6
+        value: gpt-5.6-luna
       - key: HOST
         value: 0.0.0.0
       - key: PORT
         value: 8000
+      - key: DATABASE_PATH
+        value: /app/data/rental_hunter.db
