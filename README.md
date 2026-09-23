@@ -56,3 +56,22 @@ A provider adapter must comply with each source's terms, robots rules, rate limi
 ## License
 
 MIT
+
+## Continuous monitoring
+
+The agent supports persistent watches. A user can create a watch with a 60-minute or 120-minute interval (or another interval >= 60 minutes), and the service periodically searches again. Only listings not previously seen are emitted as new results.
+
+Example MCP workflow:
+
+1. `create_rental_watch` with the user's criteria and `interval_minutes=60`.
+2. The background scheduler performs repeated scans.
+3. `scan_watch_now` can force an immediate scan.
+4. `list_rental_watches` shows active watches.
+
+### Search coverage
+
+The web-search layer is instructed to search broadly across Polish rental portals, property sites, and publicly indexed social/web pages. It cannot guarantee literally every page on the internet: private groups, login-only content, robots restrictions, CAPTCHA/anti-bot systems and non-indexed posts are not bypassed. The agent must never circumvent those controls.
+
+### New-result semantics
+
+A listing is considered new when its normalized individual listing URL has not previously been recorded. The database is SQLite by default and can be moved with `DATABASE_PATH`.
