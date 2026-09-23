@@ -44,6 +44,22 @@ Only include URLs actually found in the web research. Missing values must be nul
         seen.add(keyid)
         item=Listing(**{**raw_item,"direct_url":url})
         item.estimated_monthly_total=total_cost(item)
+        if criteria.max_monthly_total is not None and item.estimated_monthly_total > criteria.max_monthly_total:
+            continue
+        if criteria.no_agency is True and item.agency is True:
+            continue
+        if criteria.min_rooms is not None and item.rooms is not None and item.rooms < criteria.min_rooms:
+            continue
+        if criteria.max_rooms is not None and item.rooms is not None and item.rooms > criteria.max_rooms:
+            continue
+        if criteria.min_area_m2 is not None and item.area_m2 is not None and item.area_m2 < criteria.min_area_m2:
+            continue
+        if criteria.max_area_m2 is not None and item.area_m2 is not None and item.area_m2 > criteria.max_area_m2:
+            continue
+        if criteria.furnished is not None and item.furnished is not None and item.furnished != criteria.furnished:
+            continue
+        if criteria.contract_types and item.contract_type not in criteria.contract_types:
+            continue
         item.score=score_listing(item,criteria)
         out.append(item)
     return sorted(out,key=lambda x:x.score,reverse=True)[:criteria.max_results]
